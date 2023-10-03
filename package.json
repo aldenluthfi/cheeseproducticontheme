@@ -1,0 +1,28 @@
+{
+  "name": "cheesewaffle-s-product-icon-theme",
+  "displayName": "Cheesewaffle's Product Icon Theme",
+  "description": "Product Icon Theme for Visual Studio Code",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.82.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "keywords": [
+    "theme",
+    "icon-theme",
+    "product-icon-theme",
+    "cheesewaffle"
+  ],
+  "icon": "logo.png",
+  "contributes": {
+    "productIconThemes": [
+      {
+        "label": "Cheesewaffle Product",
+        "id": "cheesewaffle-product",
+        "path": "./themes/cheesewaffle-product-icon-theme.json"
+      }
+    ]
+  }
+}
