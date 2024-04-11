@@ -1,0 +1,72 @@
+name: Publish
+on: push
+permissions:
+    contents: write
+
+jobs:
+    publish-patch:
+        name: Publish a patch
+        runs-on: ubuntu-latest
+        if: contains(github.event.head_commit.message, 'Patch')
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v1
+              with:
+                node-version: 14
+                registry-url: https://registry.npmjs.org/
+            - name: Install dependencies
+              run: npm i
+            - name: Install vsce
+              run: npm i @vscode/vsce
+            - name: Setup git
+              run: |
+                git config user.name github-actions
+                git config user.email github-actions@github.com
+            - name: Publish
+              run: npx @vscode/vsce publish patch -p ${{ secrets.ACCESS_TOKEN }} --skip-license
+            - name: Push changes
+              run: git push
+    publish-minor:
+        name: Publish a minor release
+        runs-on: ubuntu-latest
+        if: contains(github.event.head_commit.message, 'Minor')
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v1
+              with:
+                node-version: 14
+                registry-url: https://registry.npmjs.org/
+            - name: Install dependencies
+              run: npm i
+            - name: Install vsce
+              run: npm i @vscode/vsce
+            - name: Setup git
+              run: |
+                git config user.name github-actions
+                git config user.email github-actions@github.com
+            - name: Publish
+              run: npx @vscode/vsce publish minor -p ${{ secrets.ACCESS_TOKEN }} --skip-license
+            - name: Push changes
+              run: git push
+    publish-major:
+        name: Publish a major release
+        runs-on: ubuntu-latest
+        if: contains(github.event.head_commit.message, 'Major')
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v1
+              with:
+                node-version: 14
+                registry-url: https://registry.npmjs.org/
+            - name: Install dependencies
+              run: npm i
+            - name: Install vsce
+              run: npm i @vscode/vsce
+            - name: Setup git
+              run: |
+                git config user.name github-actions
+                git config user.email github-actions@github.com
+            - name: Publish
+              run: npx @vscode/vsce publish major -p ${{ secrets.ACCESS_TOKEN }} --skip-license
+            - name: Push changes
+              run: git push
